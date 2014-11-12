@@ -21,12 +21,11 @@ namespace :tika do
     end
   end
 
-  namespace :server do
-    desc "Start the Tika server"
-    task :start => :environment do
-      
-    end
-  end
+  # namespace :server do
+  #   desc "Start the Tika server"
+  #   task :start => :environment do      
+  #   end
+  # end
 end
 
 namespace :fits do
