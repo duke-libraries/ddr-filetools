@@ -46,7 +46,7 @@ This is a sample document.
   </identification>
   <fileinfo>
     <lastmodified toolname="Exiftool" toolversion="9.13" status="SINGLE_RESULT">2014:11:12 12:24:18-05:00</lastmodified>
-    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dc/github/duke-libraries/ddr-extraction/spec/fixtures/blue-devil.png</filepath>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/path/to/spec/fixtures/blue-devil.png</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">blue-devil.png</filename>
     <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">75005</size>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">e6a5d16da2fbe65311952e2d8b04f069</md5checksum>
