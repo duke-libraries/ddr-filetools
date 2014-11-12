@@ -18,16 +18,19 @@ Or install it yourself as:
 
 ## Usage
 
-```ruby
+```
 >> extractor = Ddr::Extraction::Extractor.new
 => #<Ddr::Extraction::Extractor:0x007fc2851dcfa0>
+
 >> text = extractor.extract(:text, "spec/fixtures/sample.docx")
 => #<IO:fd 11>
+
 >> puts text.read
 This is a sample document.
-=> nil
+
 >> metadata = extractor.extract(:metadata, "spec/fixtures/blue-devil.png")
 => #<IO:fd 12>
+
 >> puts metadata.read
 <?xml version="1.0" encoding="UTF-8"?>
 <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.8.3" timestamp="11/12/14 12:36 PM">
@@ -73,8 +76,6 @@ This is a sample document.
     <tool toolname="Tika" toolversion="1.3" executionTime="356" />
   </statistics>
 </fits>
-
-=> nil
 ```
 
 ## Contributing
