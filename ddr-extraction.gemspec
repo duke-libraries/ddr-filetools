@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["dchandekstark@gmail.com"]
   spec.summary       = "File text and metadata extraction service."
   spec.description   = "File text and metadata extraction service."
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/duke-libraries/ddr-extraction"
   spec.license       = "BSD-3-Clause"
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -18,8 +18,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "activesupport", "~> 4.0"
-
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "rspec", "~> 3.0"
 end

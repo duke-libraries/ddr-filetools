@@ -2,18 +2,22 @@ module Ddr
   module Extraction
     module Adapters
 
-      def self.get_text_extraction_adapter
-        require_relative "adapters/#{Ddr::Extraction.text_extraction_adapter}_text_extraction_adapter"
-        adapter_name = "#{Ddr::Extraction.text_extraction_adapter.to_s.capitalize}TextExtractionAdapter"
-        klass = self.const_get(adapter_name.to_sym, false)
-        klass.new
+      def self.get_adapter(adapter_name)
+        require_relative "adapters/#{adapter_name}_adapter"
+        class_name = "#{adapter_name.to_s.capitalize}Adapter"
+        const_get(class_name.to_sym, false)
+      end      
+
+      def self.build_adapter(type)
+        adapter_name = config.send(type)
+        adapter = get_adapter(adapter_name)
+        adapter.new
       end
- 
-      def self.get_metadata_extraction_adapter
-        require_relative "adapters/#{Ddr::Extraction.metadata_extraction_adapter}_metadata_extraction_adapter"
-        adapter_name = "#{Ddr::Extraction.metadata_extraction_adapter.to_s.capitalize}MetadataExtractionAdapter"
-        klass = self.const_get(adapter_name.to_sym, false)
-        klass.new
+
+      Config = Struct.new(:text, :metadata)
+
+      def self.config
+        @@config ||= Config.new
       end
 
     end

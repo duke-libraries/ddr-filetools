@@ -1,54 +1,52 @@
 require "ddr/extraction/version"
-require "ddr/extraction/text_extractor"
-
-require "active_support/core_ext/module/attribute_accessors"
+require "ddr/extraction/adapters"
+require "ddr/extraction/extractor"
 
 module Ddr
+  #
+  # Ddr::Extraction - A file text and metadata extraction service.
+  #
   module Extraction
 
-    # Tika version 
-    mattr_accessor :tika_version do
-      "1.6"
-    end
+    class << self
 
-    # Path to tika-app-{version}.jar
-    mattr_accessor :tika_path do
-      File.expand_path("../../../bin/tika-app-#{tika_version}.jar", __FILE__)
-    end
+      attr_accessor :text_adapter, :metadata_adapter
 
-    mattr_accessor :tika_download do
-      "http://archive.apache.org/dist/tika/tika-app-#{tika_version}.jar"
-    end
+      # Yields a configurable object for the named adapter.
+      #
+      # @param adapter [Symbol] the name of the adapter - e.g., `:tika`, `:fits`
+      def configure_adapter(adapter, &block)
+        yield Adapters.get_adapter(adapter)
+      end
 
-    mattr_accessor :tika_checksum do
-      "http://archive.apache.org/dist/tika/tika-app-#{tika_version}.jar.sha"
-    end
+      def adapters
+        Adapters.config
+      end
 
-    mattr_accessor :tika_checksum_type do
-      "SHA1"
-    end
+      def set_defaults
+        bin_dir = File.expand_path("../../../bin", __FILE__)
 
-    # Text extraction adapter name
-    mattr_accessor :text_extraction_adapter do
-      :tika
-    end
+        configure_adapter :tika do |tika|
+          tika.version = "1.6"
+          tika.path = File.join(bin_dir, "tika-app.jar")
+          tika.download_url = "http://archive.apache.org/dist/tika/tika-app-#{tika.version}.jar"
+          tika.checksum = "99df0d8c3f6a2be498d275053e611fb5afdf0a9d"
+          tika.checksum_type = :SHA1
+        end
 
-    mattr_accessor :fits_version do
-      "0.8.3"
-    end
-    
-    # Path to fits script (fits.sh or fits.bat)
-    mattr_accessor :fits_path do
-      File.expand_path("../../../bin/fits-#{fits_version}/fits.sh", __FILE__)
-    end
+        configure_adapter :fits do |fits|
+          fits.version = "0.8.3"
+          fits.path = File.join(bin_dir, "fits-#{fits.version}", "fits.sh")
+          fits.download_url = "http://projects.iq.harvard.edu/files/fits/files/fits-#{fits.version}.zip"
+        end
 
-    mattr_accessor :fits_download do
-      "http://projects.iq.harvard.edu/files/fits/files/fits-#{fits_version}.zip"
-    end
+        adapters.text = :tika
+        adapters.metadata = :fits
+      end
 
-    mattr_accessor :metadata_extraction_adapter do
-      :fits
     end
 
   end
 end
+
+Ddr::Extraction.set_defaults

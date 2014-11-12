@@ -1,3 +1,4 @@
 Gemfile.lock
 bin/tika-*
 bin/fits-*
+tmp
