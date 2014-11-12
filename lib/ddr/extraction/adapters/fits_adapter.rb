@@ -6,7 +6,7 @@ module Ddr
         # Return metadata extracted from file
         #
         # @param file [String] the file from which to extract metadata.
-        # @return [IO]
+        # @return [IO] the output
         def extract_metadata(file)
           IO.popen([self.class.path, "-i", file])
         end

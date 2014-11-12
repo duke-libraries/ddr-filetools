@@ -8,12 +8,6 @@ module Ddr
         const_get(class_name.to_sym, false)
       end      
 
-      def self.build_adapter(type)
-        adapter_name = Ddr::Extraction.config.adapters.send(type)
-        adapter = get_adapter(adapter_name)
-        adapter.new
-      end
-
     end
   end
 end

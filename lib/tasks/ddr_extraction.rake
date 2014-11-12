@@ -1,4 +1,4 @@
-require "ddr-extraction"
+require "ddr/extraction/defaults"
 require "openssl"
 
 DOWNLOAD_DIR = File.absolute_path("tmp")
@@ -7,18 +7,20 @@ namespace :tika do
   desc "Download Tika app"
   task :download => :download_dir do
     tika_app = File.join(DOWNLOAD_DIR, "tika-app.jar")
-    Ddr::Extraction::Adapters::TikaAdapter.config do |tika|
-      puts "Downloading Tika app ... "
-      system "curl -L #{tika.download_url} -o #{tika_app}"
+    tika_config = Ddr::Extraction.config.adapters(:tika)
+    puts "Downloading Tika app ... "
+    system "curl -L #{tika_config.download_url} -o #{tika_app}"
+    if tika_config.verify_checksum
       puts "Verifiying checksum ... "
-      digest = OpenSSL::Digest.const_get(tika.checksum_type).new
-      digest << File.read(tika.path)
-      if digest.to_s == tika.checksum
-        FileUtils.mv(tika_app, tika.path)
-      else
-        puts "Checksums do not match!"
+      digest = OpenSSL::Digest.const_get(tika_config.checksum_type).new
+      digest << File.read(tika_config.path)
+      if digest.to_s != tika_config.checksum_value
+        puts "Checksums do not match -- aborting!"
+        FileUtils.remove_entry_secure(tika_app)
+        abort
       end
     end
+    FileUtils.mv(tika_app, tika_config.path)
   end
 
   # namespace :server do
@@ -32,13 +34,12 @@ namespace :fits do
   desc "Download FITS tool"
   task :download => :download_dir do
     fits_tool = File.join(DOWNLOAD_DIR, "fits.zip")
-    Ddr::Extraction::Adapters::FitsAdapter.config do |fits|
-      puts "Downloading FITS tool ... "
-      system "curl -L #{fits.download_url} -o #{fits_tool}"
-      # Unzip options: convert text files, force overwrite, extra quiet
-      system "unzip -a -o -qq -d bin #{fits_tool}"
-      FileUtils.chmod(0755, fits.path)
-    end
+    fits_config = Ddr::Extraction.config.adapters(:fits)
+    puts "Downloading FITS tool ... "
+    system "curl -L #{fits_config.download_url} -o #{fits_tool}"
+    # Unzip options: convert text files, force overwrite, extra quiet
+    system "unzip -a -o -qq -d bin #{fits_tool}"
+    FileUtils.chmod(0755, fits_config.path)
   end
 end
 

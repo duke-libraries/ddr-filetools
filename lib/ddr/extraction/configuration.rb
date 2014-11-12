@@ -1,21 +1,20 @@
+require_relative "adapter"
 require_relative "adapters"
 
 module Ddr
   module Extraction
     class Configuration
 
-      AdapterConfig = Struct.new(:text, :metadata)
-
-      def adapters
-        @adapter_config ||= AdapterConfig.new
+      def adapters(name)
+        config = Adapters.get_adapter(name)
+        yield config if block_given?
+        config
       end
 
-      def method_missing(name, *args)
-        begin
-          Adapters.get_adapter(name)
-        rescue
-          super
-        end
+      def adapter
+        config = Adapter
+        yield config if block_given?
+        config
       end
 
     end

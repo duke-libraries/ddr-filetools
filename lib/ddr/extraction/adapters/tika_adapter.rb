@@ -6,7 +6,7 @@ module Ddr
         # Extract text from file
         #
         # @param file [String] path to file from which to extract text
-        # @return [IO] 
+        # @return [IO] the output
         def extract_text(file)
           IO.popen(["java", "-jar", self.class.path, "--text", file])
         end
@@ -24,8 +24,11 @@ module Ddr
           # URL to download distribution
           attr_accessor :download_url
 
+          # Verify checksum?
+          attr_accessor :verify_checksum
+
           # Tika distribution checksum
-          attr_accessor :checksum
+          attr_accessor :checksum_value
 
           # Tika distribution checksum type
           attr_accessor :checksum_type
