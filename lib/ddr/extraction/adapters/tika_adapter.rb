@@ -1,9 +1,7 @@
-require_relative "adapter"
-
 module Ddr
   module Extraction
     module Adapters
-      class TikaAdapter < Adapter
+      class TikaAdapter
 
         # Extract text from file
         #

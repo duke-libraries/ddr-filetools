@@ -1,9 +1,7 @@
-require_relative "adapter"
-
 module Ddr
   module Extraction 
     module Adapters
-      class FitsAdapter < Adapter
+      class FitsAdapter
 
         # Return metadata extracted from file
         #
