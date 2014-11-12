@@ -10,8 +10,6 @@ module Ddr
 
     class << self
 
-      attr_accessor :text_adapter, :metadata_adapter
-
       # Yields a configurable object for the named adapter.
       #
       # @param adapter [Symbol] the name of the adapter - e.g., `:tika`, `:fits`
@@ -19,10 +17,12 @@ module Ddr
         yield Adapters.get_adapter(adapter)
       end
 
+      # Returns the service adapters configuration
       def adapters
         Adapters.config
       end
 
+      # TODO move somewhere ...
       def set_defaults
         bin_dir = File.expand_path("../../../bin", __FILE__)
 
