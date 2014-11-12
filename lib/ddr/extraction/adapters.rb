@@ -9,15 +9,9 @@ module Ddr
       end      
 
       def self.build_adapter(type)
-        adapter_name = config.send(type)
+        adapter_name = Ddr::Extraction.config.adapters.send(type)
         adapter = get_adapter(adapter_name)
         adapter.new
-      end
-
-      Config = Struct.new(:text, :metadata)
-
-      def self.config
-        @@config ||= Config.new
       end
 
     end
