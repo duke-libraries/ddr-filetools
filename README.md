@@ -1,4 +1,4 @@
-# Ddr::Extractor
+# Ddr::Extraction
 
 Pluggable file text and metadata extraction service.
 
