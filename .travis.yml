@@ -1,0 +1,9 @@
+language: ruby
+rvm:
+  - 2.1
+before_script: "bundle exec rake tika:download fits:download"
+cache: 
+  - bundler
+notifications:
+  email:
+    - lib-drs@duke.edu
