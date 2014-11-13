@@ -1,6 +1,6 @@
 # Ddr::Extractor
 
-Generic file text and metadata extraction service.
+Pluggable file text and metadata extraction service.
 
 ## Installation
 
