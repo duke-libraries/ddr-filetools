@@ -6,7 +6,7 @@ Pluggable file text and metadata extraction service.
 
 Add this line to your application's Gemfile:
 
-    gem 'ddr-extractor'
+    gem 'ddr-extraction'
 
 And then execute:
 
@@ -14,7 +14,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install ddr-extractor
+    $ gem install ddr-extraction
 
 ## Usage
 
