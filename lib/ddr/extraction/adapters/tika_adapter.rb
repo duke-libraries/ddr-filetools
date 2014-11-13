@@ -12,26 +12,8 @@ module Ddr
         end
 
         class << self
-          # Tika version
-          attr_accessor :version
-
           # Path to tika-app.jar
           attr_accessor :path
-
-          # Base command
-          attr_accessor :command
-
-          # URL to download distribution
-          attr_accessor :download_url
-
-          # Verify checksum?
-          attr_accessor :verify_checksum
-
-          # Tika distribution checksum
-          attr_accessor :checksum_value
-
-          # Tika distribution checksum type
-          attr_accessor :checksum_type
 
           # Tika server port (optional, required for server)
           attr_accessor :port

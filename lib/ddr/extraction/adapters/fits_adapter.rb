@@ -12,14 +12,8 @@ module Ddr
         end
 
         class << self
-          # FITS version
-          attr_accessor :version
-
           # Path to FITS executable (fits.sh or fits.bat)
           attr_accessor :path
-
-          # URL to download distribution
-          attr_accessor :download_url
         end
 
       end

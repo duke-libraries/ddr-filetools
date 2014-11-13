@@ -1,5 +1,5 @@
 Gemfile.lock
 bin/tika-*
-bin/fits-*
+bin/fits
 pkg
 tmp

@@ -1,6 +1,6 @@
-require "ddr/extraction/version"
-require "ddr/extraction/configuration"
-require "ddr/extraction/extractor"
+require_relative "extraction/version"
+require_relative "extraction/configuration"
+require_relative "extraction/extractor"
 
 module Ddr
   #
@@ -10,14 +10,15 @@ module Ddr
 
     class << self
 
-      attr_reader :config
+      def config
+        @config ||= Configuration.new
+      end
 
       # Yields a configuration object for the service
       def configure
-        @config ||= Configuration.new
-        yield @config
+        yield config
       end
-
+      
     end
 
   end

@@ -5,8 +5,8 @@ module Ddr
   module Extraction
     class Configuration
 
-      def adapters(name)
-        config = Adapters.get_adapter(name)
+      def adapters
+        config = Adapters
         yield config if block_given?
         config
       end

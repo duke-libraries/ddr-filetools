@@ -1,26 +1,40 @@
 require "ddr/extraction/defaults"
 require "openssl"
+require "net/http"
 
 DOWNLOAD_DIR = File.absolute_path("tmp")
+BIN_DIR = File.absolute_path("bin")
+TIKA_VERSION = "1.6"
+FITS_VERSION = "0.8.3"
+
+tika_version = ENV["TIKA_VERSION"] || TIKA_VERSION
+tika_path = Ddr::Extraction.config.adapters.tika.path
+tika_app = File.basename(tika_path)
+tika_download_url = "http://archive.apache.org/dist/tika/tika-app-#{tika_version}.jar"
+tika_checksum_url = "#{tika_download_url}.sha"
+tika_checksum_type = :SHA1
+
+fits_version = ENV["FITS_VERSION"] || FITS_VERSION
+fits_path = Ddr::Extraction.config.adapters.fits.path
+fits_download_url = "http://projects.iq.harvard.edu/files/fits/files/fits-#{fits_version}.zip"
 
 namespace :tika do
   desc "Download Tika app"
-  task :download => :download_dir do
-    tika_app = File.join(DOWNLOAD_DIR, "tika-app.jar")
-    tika_config = Ddr::Extraction.config.adapters(:tika)
-    puts "Downloading Tika app ... "
-    system "curl -L #{tika_config.download_url} -o #{tika_app}"
-    if tika_config.verify_checksum
+  task :download => [:download_dir] do
+    FileUtils.cd(DOWNLOAD_DIR) do
+      puts "Downloading Tika app ... "
+      system "curl -L #{tika_download_url} -o #{tika_app}"
+      checksum = Net::HTTP.get(URI(tika_checksum_url)).chomp
       puts "Verifiying checksum ... "
-      digest = OpenSSL::Digest.const_get(tika_config.checksum_type).new
-      digest << File.read(tika_config.path)
-      if digest.to_s != tika_config.checksum_value
+      digest = OpenSSL::Digest.const_get(tika_checksum_type).new
+      digest << File.read(tika_app)
+      if digest.to_s != checksum
         puts "Checksums do not match -- aborting!"
         FileUtils.remove_entry_secure(tika_app)
         abort
       end
+      FileUtils.mv(tika_app, tika_path)
     end
-    FileUtils.mv(tika_app, tika_config.path)
   end
 
   # namespace :server do
@@ -33,13 +47,13 @@ end
 namespace :fits do
   desc "Download FITS tool"
   task :download => :download_dir do
-    fits_tool = File.join(DOWNLOAD_DIR, "fits.zip")
-    fits_config = Ddr::Extraction.config.adapters(:fits)
-    puts "Downloading FITS tool ... "
-    system "curl -L #{fits_config.download_url} -o #{fits_tool}"
-    # Unzip options: convert text files, force overwrite, extra quiet
-    system "unzip -a -o -qq -d bin #{fits_tool}"
-    FileUtils.chmod(0755, fits_config.path)
+    FileUtils.cd(DOWNLOAD_DIR) do
+      puts "Downloading FITS tool ... "
+      system "curl -L #{fits_download_url} -o fits.zip"
+      system "unzip -a -o -q fits.zip"
+      FileUtils.mv("fits-#{fits_version}", File.dirname(fits_path))
+    end
+    FileUtils.chmod(0755, fits_path)
   end
 end
 
