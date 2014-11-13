@@ -16,6 +16,46 @@ Or install it yourself as:
 
     $ gem install ddr-extraction
 
+## Dependencies
+
+The gem has no external dependencies of its own. Consult the documentation for each extraction tool used by your configuration.
+
+## Configuration
+
+`Ddr::Extraction` include a default configuration that uses [Aapche Tika](http://tika.apache.org/) for text extraction and [FITS](http://fitstool.org/) for metadata extraction.
+
+```ruby
+require "ddr/extraction/defaults"
+```
+
+There are rake tasks for downloading Tika and FITS to expected locations.
+
+```sh
+rake tika:download
+rake fits:download
+```
+
+Configuration Example
+
+```ruby
+Ddr::Extraction.configure do |config|
+
+  # Set the adapter to use each type of extraction
+  config.adapter.text = :tika     # Use the Tika adapter for text extraction
+  config.adapter.metadata = :fits # Use the FITS adapter for metadata extraction
+
+  # Configure individual adapters
+  config.adapters.tika do |tika|
+    tika.path = "/path/to/tika-app.jar"
+  end
+  
+  config.adapters.fits do |fits|
+    fits.path = "/path/to/fits.sh"
+  end
+  
+end
+```
+
 ## Usage
 
 ```
