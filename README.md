@@ -22,10 +22,11 @@ The gem has no external dependencies of its own. Consult the documentation for e
 
 ## Configuration
 
-`Ddr::Extraction` include a default configuration that uses [Aapche Tika](http://tika.apache.org/) for text extraction and [FITS](http://fitstool.org/) for metadata extraction.
+`Ddr::Extraction` includes default configurations for [Aapche Tika](http://tika.apache.org/) (text and metadata extraction) and [FITS](http://fitstool.org/) (metadata only).  Tika is set as the default adapter when one is not specified to the builder.
 
 ```ruby
-require "ddr/extraction/defaults"
+require "ddr-extraction
+Ddr::Extraction.load_defaults!
 ```
 
 There are rake tasks for downloading Tika and FITS to expected locations.
@@ -39,83 +40,19 @@ Configuration Example
 
 ```ruby
 Ddr::Extraction.configure do |config|
-
-  # Set the adapter to use each type of extraction
-  config.adapter.text = :tika     # Use the Tika adapter for text extraction
-  config.adapter.metadata = :fits # Use the FITS adapter for metadata extraction
-
-  # Configure individual adapters
-  config.adapters.tika do |tika|
-    tika.path = "/path/to/tika-app.jar"
-  end
-  
-  config.adapters.fits do |fits|
-    fits.path = "/path/to/fits.sh"
-  end
-  
+  config.adapters.default = :tika # Use Tika as the default adapter
+  config.adapters.tika.path = "/path/to/tika-app.jar"
+  config.adapters.fits.path = "/path/to/fits.sh"
 end
 ```
 
 ## Usage
 
 ```
->> extractor = Ddr::Extraction::Extractor.new
-=> #<Ddr::Extraction::Extractor:0x007fc2851dcfa0>
-
+>> extractor = Ddr::Extraction.build_extractor
 >> text = extractor.extract(:text, "spec/fixtures/sample.docx")
-=> #<IO:fd 11>
-
 >> puts text.read
 This is a sample document.
-
->> metadata = extractor.extract(:metadata, "spec/fixtures/blue-devil.png")
-=> #<IO:fd 12>
-
->> puts metadata.read
-<?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.8.3" timestamp="11/12/14 12:36 PM">
-  <identification>
-    <identity format="Portable Network Graphics" mimetype="image/png" toolname="FITS" toolversion="0.8.3">
-      <tool toolname="Exiftool" toolversion="9.13" />
-      <tool toolname="Droid" toolversion="6.1.3" />
-      <tool toolname="ffident" toolversion="0.2" />
-      <tool toolname="Tika" toolversion="1.3" />
-      <version toolname="Droid" toolversion="6.1.3">1.0</version>
-      <externalIdentifier toolname="Droid" toolversion="6.1.3" type="puid">fmt/11</externalIdentifier>
-    </identity>
-  </identification>
-  <fileinfo>
-    <lastmodified toolname="Exiftool" toolversion="9.13" status="SINGLE_RESULT">2014:11:12 12:24:18-05:00</lastmodified>
-    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/path/to/spec/fixtures/blue-devil.png</filepath>
-    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">blue-devil.png</filename>
-    <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">75005</size>
-    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">e6a5d16da2fbe65311952e2d8b04f069</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1415813058000</fslastmodified>
-  </fileinfo>
-  <filestatus />
-  <metadata>
-    <image>
-      <compressionScheme toolname="Exiftool" toolversion="9.13" status="CONFLICT">Deflate/Inflate</compressionScheme>
-      <compressionScheme toolname="Tika" toolversion="1.3" status="CONFLICT">Deflate</compressionScheme>
-      <imageWidth toolname="Exiftool" toolversion="9.13">200</imageWidth>
-      <imageHeight toolname="Exiftool" toolversion="9.13">200</imageHeight>
-      <orientation toolname="Tika" toolversion="1.3" status="SINGLE_RESULT">normal*</orientation>
-    </image>
-  </metadata>
-  <statistics fitsExecutionTime="791">
-    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
-    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Jhove" toolversion="1.5" executionTime="556" />
-    <tool toolname="file utility" toolversion="5.04" executionTime="623" />
-    <tool toolname="Exiftool" toolversion="9.13" executionTime="664" />
-    <tool toolname="Droid" toolversion="6.1.3" executionTime="147" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.4GA" executionTime="366" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="142" />
-    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="369" />
-    <tool toolname="Tika" toolversion="1.3" executionTime="356" />
-  </statistics>
-</fits>
 ```
 
 ## Contributing
