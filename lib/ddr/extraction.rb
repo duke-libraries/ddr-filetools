@@ -26,6 +26,10 @@ module Ddr
         require_relative "extraction/defaults"
       end
 
+      def build_extractor(adapter_name = nil)
+        Extractor.build(adapter_name)
+      end
+
     end
 
   end
