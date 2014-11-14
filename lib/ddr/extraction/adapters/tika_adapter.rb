@@ -1,15 +1,11 @@
+require_relative "adapter"
+
 module Ddr
   module Extraction
     module Adapters
-      class TikaAdapter
+      class TikaAdapter < Adapter
 
-        # Extract text from file
-        #
-        # @param file [String] path to file from which to extract text
-        # @return [IO] the output
-        def extract_text(file)
-          IO.popen(["java", "-jar", self.class.path, "--text", file])
-        end
+        register :tika
 
         class << self
           # Path to tika-app.jar
@@ -17,9 +13,25 @@ module Ddr
 
           # Tika server port (optional, required for server)
           attr_accessor :port
-        end          
+        end  
+
+        private
+
+        def command(output, file_path)
+          ["java", "-jar", self.class.path, output_options(output), file_path].flatten
+        end
+
+        def output_options(output)
+          case output
+          when :text
+            "--text"
+          when :metadata
+            ["--metadata", "--xml"]
+          end
+        end
 
       end
+
     end
   end
 end
