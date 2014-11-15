@@ -1,6 +1,6 @@
 # Ddr::Extraction
 
-Pluggable file text and metadata extraction service.
+Pluggable text and metadata extraction service.
 
 [![Gem Version](https://badge.fury.io/rb/ddr-extraction.svg)](http://badge.fury.io/rb/ddr-extraction)
 [![Build Status](https://travis-ci.org/duke-libraries/ddr-extraction.svg?branch=develop)](https://travis-ci.org/duke-libraries/ddr-extraction)
