@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Ddr::Extraction::VERSION
   spec.authors       = ["David Chandek-Stark"]
   spec.email         = ["dchandekstark@gmail.com"]
-  spec.summary       = "File text and metadata extraction service."
-  spec.description   = "File text and metadata extraction service."
+  spec.summary       = "Pluggable text and metadata extraction service."
+  spec.description   = "Pluggable text and metadata extraction service."
   spec.homepage      = "https://github.com/duke-libraries/ddr-extraction"
   spec.license       = "BSD-3-Clause"
 
