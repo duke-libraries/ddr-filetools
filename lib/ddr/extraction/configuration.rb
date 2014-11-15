@@ -4,11 +4,11 @@ module Ddr
   module Extraction
     class Configuration
 
-      # Returns an object have settable attributes for adapters.
+      # Returns the adapters module.
+      #
+      # @return [Module] the adapters module.
       def adapters
-        config = Adapters
-        yield config if block_given?
-        config
+        Adapters
       end
 
     end

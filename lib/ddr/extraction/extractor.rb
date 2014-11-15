@@ -27,8 +27,11 @@ module Ddr
         def build(adapter_name = nil)
           adapter = Adapters.get_adapter(adapter_name)
           extractor = new(adapter.new)
-          yield extractor if block_given?
-          extractor
+          if block_given?
+            yield extractor
+          else 
+            extractor
+          end
         end
 
       end
