@@ -4,6 +4,8 @@ Pluggable text and metadata extraction service.
 
 [![Gem Version](https://badge.fury.io/rb/ddr-extraction.svg)](http://badge.fury.io/rb/ddr-extraction)
 [![Build Status](https://travis-ci.org/duke-libraries/ddr-extraction.svg?branch=develop)](https://travis-ci.org/duke-libraries/ddr-extraction)
+[![Coverage Status](https://coveralls.io/repos/duke-libraries/ddr-extraction/badge.png?branch=develop)](https://coveralls.io/r/duke-libraries/ddr-extraction?branch=develop)
+[![Code Climate](https://codeclimate.com/github/duke-libraries/ddr-extraction/badges/gpa.svg)](https://codeclimate.com/github/duke-libraries/ddr-extraction)
 
 ## Installation
 
