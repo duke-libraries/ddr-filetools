@@ -27,7 +27,7 @@ The gem has no external dependencies of its own. Consult the documentation for e
 
 ## Configuration
 
-`Ddr::Extraction` includes default configurations for [Aapche Tika](http://tika.apache.org/) (text and metadata extraction) and [FITS](http://fitstool.org/) (metadata only).  Tika is set as the default adapter when one is not specified to the builder.
+`Ddr::Extraction` includes default configurations for [Apache Tika](http://tika.apache.org/) (text and metadata extraction) and [FITS](http://fitstool.org/) (metadata only).  Tika is set as the default adapter when one is not specified to the builder.
 
 ```ruby
 require "ddr-extraction
