@@ -1,4 +1,5 @@
 Gemfile.lock
+coverage
 bin/tika-*
 bin/fits
 pkg

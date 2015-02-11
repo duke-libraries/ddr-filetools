@@ -4,7 +4,7 @@ require "net/http"
 
 DOWNLOAD_DIR = File.absolute_path("tmp")
 BIN_DIR = File.absolute_path("bin")
-TIKA_VERSION = "1.6"
+TIKA_VERSION = "1.7"
 FITS_VERSION = "0.8.3"
 
 tika_version = ENV["TIKA_VERSION"] || TIKA_VERSION
