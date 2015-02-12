@@ -1,39 +1,25 @@
-require "delegate"
-require_relative "adapters"
-
 module Ddr
   module Extraction
-    #
-    # The Extractor is the main public class.
-    #
-    # It works by delegating to an adapter that does the real work.
-    #
-    #     extractor = Ddr::Extraction::Extractor.build(:tika)
-    #     text = extractor.extract(:text, "/path/to/text/file")
-    #     puts text.read
-    #     ...
-    #
-    class Extractor < ::SimpleDelegator
+    # Receiver
+    class Extractor
 
-      class << self
+      def text(file_path)
 
-        # Returns/yields an extractor instance
-        #
-        # @param adapter_name [Symbol] the name of the adapter to plug in.
-        #        If not given, a default adapter will be used, if
-        #        Ddr::Extraction::Adapters.default has been set with 
-        #        the name of the default adapter.
-        # 
-        def build(adapter_name = nil)
-          adapter = Adapters.get_adapter(adapter_name)
-          extractor = new(adapter.new)
-          if block_given?
-            yield extractor
-          else 
-            extractor
-          end
-        end
+      end
 
+      def metadata(file_path)
+
+      end
+
+      # Extract a kind of output from the file path
+      #
+      # @param output [Symbol] the kind of output, `:text` or `:metadata`
+      # @param file_path [String] path to the file to be processed
+      # @return [IO] the result of the extraction
+      # @api public
+      def extract(output, file_path)
+        raise IOError, "File not found: #{file_path}" unless File.exist?(file_path)
+        adapters.send(output, file_path)
       end
 
     end
