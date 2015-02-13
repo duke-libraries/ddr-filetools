@@ -1,6 +1,6 @@
-# Ddr::Extraction
+# Ddr::FileTools
 
-Pluggable text and metadata extraction service.
+File extraction and analysis tools.
 
 [![Gem Version](https://badge.fury.io/rb/ddr-filetools.svg)](http://badge.fury.io/rb/ddr-filetools)
 [![Build Status](https://travis-ci.org/duke-libraries/ddr-filetools.svg?branch=develop)](https://travis-ci.org/duke-libraries/ddr-filetools)
