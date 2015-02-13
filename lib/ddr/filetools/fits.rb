@@ -1,8 +1,8 @@
-require_relative "adapter"
+require_relative "provider"
 
 module Ddr
-  module Extraction 
-    class FitsAdapter < Adapter
+  module FileTools
+    class Fits < Provider
 
       class << self
         # Path to FITS executable (fits.sh or fits.bat)

@@ -1,8 +1,8 @@
-require_relative "adapter"
+require_relative "provider"
 
 module Ddr
-  module Extraction
-    class TikaAdapter < Adapter
+  module FileTools
+    class Tika < Provider
 
       class << self
         # Path to tika-app.jar

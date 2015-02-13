@@ -1,5 +1,5 @@
 module Ddr
-  module Extraction
+  module FileTools
     class Result
 
       attr_reader :output, :error, :status
@@ -9,11 +9,23 @@ module Ddr
       end
 
       def inspect
-        "#<Ddr::Extraction::Result #{status.success? ? 'SUCCESS' : 'ERROR'}>"
+        "#<Ddr::FileTools::Result #{success? ? 'SUCCESS' : 'ERROR'}>"
       end
 
       def to_s
         output
+      end
+
+      def read
+        output
+      end
+
+      def success?
+        status.success?
+      end
+
+      def error?
+        !success?
       end
 
     end

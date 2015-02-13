@@ -1,4 +1,3 @@
-require "ddr/extraction/defaults"
 require "openssl"
 require "net/http"
 
@@ -8,14 +7,14 @@ TIKA_VERSION = "1.7"
 FITS_VERSION = "0.8.3"
 
 tika_version = ENV["TIKA_VERSION"] || TIKA_VERSION
-tika_path = Ddr::Extraction.config.adapters.tika.path
+tika_path = File.join(BIN_DIR, "tika-app.jar")
 tika_app = File.basename(tika_path)
 tika_download_url = "http://archive.apache.org/dist/tika/tika-app-#{tika_version}.jar"
 tika_checksum_url = "#{tika_download_url}.sha"
 tika_checksum_type = :SHA1
 
 fits_version = ENV["FITS_VERSION"] || FITS_VERSION
-fits_path = Ddr::Extraction.config.adapters.fits.path
+fits_path = File.join(BIN_DIR, "fits", "fits.sh")
 fits_download_url = "http://projects.iq.harvard.edu/files/fits/files/fits-#{fits_version}.zip"
 
 namespace :tika do
@@ -36,12 +35,6 @@ namespace :tika do
       FileUtils.mv(tika_app, tika_path)
     end
   end
-
-  # namespace :server do
-  #   desc "Start the Tika server"
-  #   task :start => :environment do      
-  #   end
-  # end
 end
 
 namespace :fits do

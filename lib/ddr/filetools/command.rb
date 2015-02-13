@@ -1,11 +1,11 @@
 module Ddr
-  module Extraction
+  module FileTools
     class Command
 
-      attr_reader :adapter
+      attr_reader :provider
 
-      def initialize(adapter)
-        @adapter = adapter
+      def initialize(provider)
+        @provider = provider
       end
 
       def call(file_path)

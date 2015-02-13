@@ -1,11 +1,11 @@
 require_relative "command"
 
 module Ddr
-  module Extraction
+  module FileTools
     class MetadataCommand < Command
 
       def call(file_path)
-        adapter.metadata(file_path)
+        provider.metadata(file_path)
       end
 
     end
