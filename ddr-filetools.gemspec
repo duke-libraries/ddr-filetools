@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'ddr/extraction/version'
+require 'ddr/filetools/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "ddr-extraction"
-  spec.version       = Ddr::Extraction::VERSION
+  spec.name          = "ddr-filetools"
+  spec.version       = Ddr::FileTools::VERSION
   spec.authors       = ["David Chandek-Stark"]
   spec.email         = ["dchandekstark@gmail.com"]
-  spec.summary       = "File text and metadata extraction service."
-  spec.description   = "File text and metadata extraction service."
-  spec.homepage      = "https://github.com/duke-libraries/ddr-extraction"
+  spec.summary       = "Pluggable text and metadata extraction service."
+  spec.description   = "Pluggable text and metadata extraction service."
+  spec.homepage      = "https://github.com/duke-libraries/ddr-filetools"
   spec.license       = "BSD-3-Clause"
 
   spec.files         = `git ls-files -z`.split("\x0")
